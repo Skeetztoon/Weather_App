@@ -67,9 +67,9 @@ class _LocationsState extends State<Locations> {
               child: Row(
                 children: <Widget>[
                   Text(
-                    '$temperature°  ',
+                    '$temperature°',
                   ),
-                  Image.asset('$weatherIcon')
+                  Image.asset(weatherIcon)
                 ],
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/location.dart';
 import 'package:intl/intl.dart';
+import 'searchBar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,16 +28,28 @@ class _HomePageState extends State<HomePage> {
                     DateFormat("dd MMM").format(DateTime.now()),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  TextButton(
-                    child: Icon(
-                      Icons.search_rounded,
-                      color: Theme.of(context).iconTheme.color,
+                  Hero(
+                    tag: "SearchBar",
+                    child: TextButton(
+                      child: Icon(
+                        Icons.search_rounded,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MySearchBar()
+                            )
+                        );
+                      },
                     ),
-                    onPressed: () {},
                   ),
                 ],
               ),
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               Image.asset("assets/images/PartlySunny.png"),
               // Container(
               //   height: 200,
@@ -46,7 +59,9 @@ class _HomePageState extends State<HomePage> {
               //       borderRadius: BorderRadius.circular(20)
               //   ),
               // ),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               Text(
                 "22°",
                 style: Theme.of(context).textTheme.titleLarge,

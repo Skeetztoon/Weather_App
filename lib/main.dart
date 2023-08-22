@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Weather App',
       debugShowCheckedModeBanner: false,
       theme: basicTheme(),
-      home: Locations(),
+      home: HomePage(),
     );
   }
 }
