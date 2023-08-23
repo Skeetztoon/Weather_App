@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:weather_app/pages/location.dart';
 import 'package:intl/intl.dart';
+import 'iconToText.dart';
 import 'searchBar.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,39 +16,39 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    DateFormat("dd MMM").format(DateTime.now()),
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Hero(
-                    tag: "SearchBar",
-                    child: TextButton(
-                      child: Icon(
-                        Icons.search_rounded,
-                        color: Theme.of(context).iconTheme.color,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MySearchBar()
-                            )
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+              IconTextField(),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: <Widget>[
+              //     Text(
+              //       DateFormat("dd MMM").format(DateTime.now()),
+              //       style: Theme.of(context).textTheme.titleMedium,
+              //     ),
+              //     Hero(
+              //       tag: "SearchBar",
+              //       child: TextButton(
+              //         child: Icon(
+              //           Icons.search_rounded,
+              //           color: Theme.of(context).iconTheme.color,
+              //         ),
+              //         onPressed: () {
+              //           Navigator.push(context, PageTransition(
+              //               type: PageTransitionType.fade , duration: Duration(milliseconds: 150),
+              //               child: const MySearchBar()
+              //           ));
+              //         },
+              //       ),
+              //     ),
+              //   ],
+              // ),
               SizedBox(
                 height: 50,
               ),

@@ -28,5 +28,5 @@ ThemeData basicTheme () => ThemeData(
     color: Colors.white,
   ),
 
-  // scaffoldBackgroundColor: myBackgroundColor,
+  scaffoldBackgroundColor: myBackgroundColor,
 );
