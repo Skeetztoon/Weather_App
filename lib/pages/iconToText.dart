@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/logics/cities.dart';
+import 'package:weather_app/logics/cityProvider.dart';
 
 class IconTextField extends StatefulWidget {
   @override
@@ -11,8 +13,10 @@ class _IconTextFieldState extends State<IconTextField> {
   bool _shouldShowTextField = false;
 
   int filtered =0;
+
   @override
   Widget build(BuildContext context) {
+    final providerCity = Provider.of<CityProvider>(context);
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -66,6 +70,11 @@ class _IconTextFieldState extends State<IconTextField> {
                                 .toLowerCase()
                                 .contains(textEditingValue.text.toLowerCase()));
                           }
+                        },
+
+                        onSelected: (value) {
+                          providerCity.cityName = value;
+                          print(providerCity.cityName);
                         },
                         // optionsMaxHeight: 1,
                         // optionsViewBuilder:

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:weather_app/pages/location.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../logics/cityProvider.dart';
 import 'iconToText.dart';
-import 'searchBar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final providerCity = Provider.of<CityProvider>(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
