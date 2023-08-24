@@ -1,19 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../logics/cityProvider.dart';
+import '../logics/logics.dart';
 import 'iconToText.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, this.locationWeather});
+  final locationWeather;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
+  late int temperature;
+  late String cityName;
+  late int condition;
+  late String weatherIcon;
+  WeatherModel weatherModel = WeatherModel();
+
+  @override
+  void initState() {
+    super.initState();
+    updateUI(widget.locationWeather);
+  }
+
+  void updateUI(dynamic weather) {
+    setState(() {
+      if (weather == null) {
+        temperature = 0;
+        cityName = '';
+        weatherIcon="";
+        return;
+      }
+      var condition = weather['weather'][0]['id'];
+      weatherIcon = weatherModel.getWeatherIcon(condition);
+      temperature = weather['main']['temp'].toInt();
+      cityName = weather['name'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final providerCity = Provider.of<CityProvider>(context);
+    cityName = providerCity.cityName;
     return Scaffold(
         resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -24,34 +55,11 @@ class _HomePageState extends State<HomePage> {
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconTextField(),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: <Widget>[
-              //     Text(
-              //       DateFormat("dd MMM").format(DateTime.now()),
-              //       style: Theme.of(context).textTheme.titleMedium,
-              //     ),
-              //     Hero(
-              //       tag: "SearchBar",
-              //       child: TextButton(
-              //         child: Icon(
-              //           Icons.search_rounded,
-              //           color: Theme.of(context).iconTheme.color,
-              //         ),
-              //         onPressed: () {
-              //           Navigator.push(context, PageTransition(
-              //               type: PageTransitionType.fade , duration: Duration(milliseconds: 150),
-              //               child: const MySearchBar()
-              //           ));
-              //         },
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              SizedBox(
+
+              const SizedBox(
                 height: 50,
               ),
-              Image.asset("assets/images/PartlySunny.png"),
+              Image.asset("${providerCity.weatherIcon}"),
               // Container(
               //   height: 200,
               //   width: 200,
@@ -60,16 +68,16 @@ class _HomePageState extends State<HomePage> {
               //       borderRadius: BorderRadius.circular(20)
               //   ),
               // ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Text(
-                "22°",
+                "${providerCity.temperature}°",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Expanded(
                 child: Text(
-                  "Moscow",
+                  providerCity.cityName,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -84,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         Text(
-                          "8m/s",
+                          "${providerCity.wind}m/s",
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
@@ -98,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         Text(
-                          "70",
+                          providerCity.humidity.toString(),
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
