@@ -18,11 +18,9 @@ class NetworkData {
   }
 }
 
-const weatherAPI = "https://api.openweathermap.org/data/2.5/weather";
-
 class WeatherModel {
   Future<dynamic> getCityWeather(String cityName) async {
-    var url = "$weatherAPI?q=$cityName&appid=$apiKey&units=metric";
+    var url = "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey&units=metric";
     NetworkData networkHelper = NetworkData(url);
     var weatherData = networkHelper.getData();
     return weatherData;
